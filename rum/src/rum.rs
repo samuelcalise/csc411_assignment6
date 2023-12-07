@@ -103,7 +103,7 @@ impl Rum {
         let b_bit = some_instruction.b.unwrap() as usize;
 
         let c_bit = some_instruction.c.unwrap() as usize;
-
+        
         let this_address = self.register.get_register_value(a_bit) as usize;
 
         let index = self.register.get_register_value(b_bit) as usize;
