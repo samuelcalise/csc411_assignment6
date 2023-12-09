@@ -57,7 +57,7 @@ fn main()
             um_instruction::Opcode::Div => rum.division(this_instruction),
             um_instruction::Opcode::Nand => rum.bit_nand(this_instruction),
             um_instruction::Opcode::Halt => {
-                println!("The total number of instructions: {}", instruction_count);
+                //println!("The total number of instructions: {}", instruction_count);
                 process::exit(0);
             }
             um_instruction::Opcode::MapSegment => rum.map_segment(this_instruction),

@@ -66,7 +66,6 @@ impl Rum {
             self.register.set_register_value(a_bit, value);
         }
     }
-    
 
     ///Function: `segment_load(&mut self, some_instruction: Instruction)`
     ///
