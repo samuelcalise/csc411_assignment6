@@ -21,6 +21,7 @@ impl Segment {
     ///This function initializes a new `Segment` which has
     ///`addresses` and `instructions` which are vector respected to
     ///the passed `some_instruction` during runtime.
+    #[inline]
     pub fn new(some_instruction: &Vec<u32>) -> Segment
     {
         Segment{
@@ -33,6 +34,7 @@ impl Segment {
     ///
     ///This function will returning an removed address from the vector of `addresses` that
     ///will be returned and replaces with a zero of all zero's based on an instruction's `size`.
+    #[inline]
     pub fn map_segment(& mut self, size: usize) -> usize
     {
         let zero_vec =  vec![0_u32; size];
@@ -58,6 +60,7 @@ impl Segment {
     ///
     ///This function will be unmapping and replacing a value at `some_address` in the
     ///`instructions` vector.
+    #[inline]
     pub fn unmap_segment(& mut self, some_address: usize)
     {
         self.addresses.push(some_address);
@@ -69,6 +72,7 @@ impl Segment {
     ///
     ///The helper function is designed to return the `instructions` of a certain segment
     ///at `some_address`.
+    #[inline]
     pub fn get_segment_value(&self, some_address: usize) -> Option<&Vec<u32>>
     {
         self.instructions.get(some_address)
@@ -78,6 +82,7 @@ impl Segment {
     ///
     ///This function is intended to find the `Instruction` of the segment's opcode
     ///value that will have an intended `Instruction`.
+    #[inline]
     pub fn find_instruction(&self, c: usize) -> Instruction
     {
         match self.instructions.get(0){
@@ -92,6 +97,7 @@ impl Segment {
     ///during runtime. The function will obtain the `current_segment` at `some_address` that will
     ///replaced at the `current_segment`'s at `index` and will have a new `value` that is passed 
     ///into the function.
+    #[inline]
     pub fn set_segment_value(&mut self, some_address: usize, index: usize, value: u32)
     {
         let current_segment = self.instructions.get_mut(some_address).unwrap();
@@ -103,6 +109,7 @@ impl Segment {
     ///
     ///This function will be inserting a segment at the `0` position of `instructions` that is a 
     ///`cloned_segment` of `some_address` to a newer segment.
+    #[inline]
     pub fn insert_value(&mut self, some_address: usize)
     {
         let cloned_segment = self.instructions.get(some_address).unwrap().clone();

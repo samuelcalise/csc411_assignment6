@@ -120,18 +120,19 @@ impl Rum {
     ///The `addition` function will add the values of `b_bit` and `c_bit` at the 
     ///address of `a_bit` from the passed in `some_instruction`. The values 
     ///will be stored at the address of `a_bit` in the register during runtime.
-    pub fn addition(&mut self, some_instruction: Instruction)
-    {
-        let a_bit = some_instruction.a as usize;
+    pub fn addition(&mut self, some_instruction: Instruction) {
 
-        let b_bit = some_instruction.b.unwrap() as usize;
-
-        let c_bit = some_instruction.c.unwrap() as usize;
-
+        let (a_bit, b_bit, c_bit) = (
+            
+            some_instruction.a as usize,
+            some_instruction.b.unwrap() as usize,
+            some_instruction.c.unwrap() as usize,
+        );
+    
         let value = self.register.get_register_value(b_bit).wrapping_add(self.register.get_register_value(c_bit));
-
         self.register.set_register_value(a_bit, value);
     }
+    
 
     ///Function: `multiplication(&mut self, some_instruction: Instruction)`
     ///
@@ -191,18 +192,19 @@ impl Rum {
     ///
     ///The `map_segment` function will be reassigning the a segment to a new
     ///location in the `register`.
-    pub fn map_segment(&mut self, some_instruction: Instruction)
-    {
+    pub fn map_segment(&mut self, some_instruction: Instruction) {
+
         let b_bit = some_instruction.b.unwrap() as usize;
 
         let c_bit = some_instruction.c.unwrap() as usize;
-
-        let new_size = self.register.get_register_value(c_bit) as usize;
-
-        let new_address =  self.segment.map_segment(new_size);
-
-        self.register.set_register_value(b_bit, new_address as u32);
+    
+        let new_size = unsafe { self.register.get_register_value(c_bit) as usize };
+    
+        let new_address = unsafe { self.segment.map_segment(new_size) };
+    
+        unsafe { self.register.set_register_value(b_bit, new_address as u32) };
     }
+    
 
     ///Function: `unmap_segment(&mut self, some_instruction: Instruction)`
     ///
