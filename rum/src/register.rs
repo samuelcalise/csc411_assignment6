@@ -29,14 +29,14 @@ impl Register {
     ///vector. Then the getter function will return the value
     ///at the register's address as a u32 value.
     pub fn get_register_value(&self, register: usize) -> u32 {
-        // Use get_unchecked to obtain a reference
-        // let reference = unsafe {
-        //     self.vec_registers.get_unchecked(register)
-        // };
-    
-        // *reference
 
-        self.vec_registers[register]
+        let reference = unsafe {
+            self.vec_registers.get_unchecked(register)
+        };
+    
+        *reference
+
+        //self.vec_registers[register]
     }    
 
     ///Function: set_register_value(&mut self, register: usize) -> u32

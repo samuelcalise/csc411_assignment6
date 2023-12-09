@@ -75,6 +75,7 @@ fn main()
             rum.bit_nand(this_instruction);
         }
         else if this_instruction.opcode == um_instruction::Opcode::Halt {
+            println!("The total number of instructions: {}", instruction_count);
             process::exit(0);
         }
         else if this_instruction.opcode == um_instruction::Opcode::MapSegment {
