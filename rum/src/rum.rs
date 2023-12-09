@@ -37,11 +37,13 @@ impl Rum {
     ///This function is intended to get the instruction from a helper
     ///function. The function will return the found `Instruction` from the
     ///helper function `find_instruction`.
-    pub fn get_instruction(&self, c: usize) -> Instruction
-    {
-        self.segment.find_instruction(c)
+    pub fn get_instruction(&self, c: usize) -> Instruction {
+       
+        unsafe {
+            self.segment.find_instruction(c)
+        }
     }
-
+    
     ///Function: `conditional_move(&mut self, some_instruction: Instruction)`
     ///
     ///The function `conditional_move` takes in the instruction `some_instruction`
@@ -64,6 +66,7 @@ impl Rum {
             self.register.set_register_value(a_bit, value);
         }
     }
+    
 
     ///Function: `segment_load(&mut self, some_instruction: Instruction)`
     ///

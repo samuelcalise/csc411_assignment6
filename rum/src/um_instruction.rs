@@ -1,10 +1,11 @@
-use bitpack::bitpack::{getu};
+//use bitpack::bitpack::{getu};
 
 #[derive(Debug)]
 ///Structure Instruction
 ///
 ///This structure has the opcode, a, b, c, and the value of the `u32` bit word
 ///from runtime.
+
 pub struct Instruction {
     pub opcode: Opcode,
     pub a: u32,
@@ -91,6 +92,14 @@ pub fn get_opcode(instruction: u64) -> Opcode {
     }
 }
 
+pub fn getu(word: u32, lsb: u32, width: u32) -> u32 {
+    /*  //left shifting to get the most  |   //After the left shift, then
+        //significant bit position in    |   //right shift off the uneeded
+        //the unsigned value             |   //bits from the initial left shift */
+        //eprintln!("{:032b} this is the word {},{}", word, width, lsb);
+        return (word << (32 - width - lsb)) >> (32 - width)
+    }
+
 ///Function: `get_a_bit(some_instruction: u64, opcode: &Opcode) -> u32`
 ///
 ///This function is intended to get and return the value of `A` in the instruction.
@@ -133,12 +142,12 @@ pub fn get_c_bit(some_instruction: u32, opcode: &Opcode) -> Option<u32> {
 ///
 ///This function is intended to get and return the value from the instruction.
 pub fn get_value(some_instruction: u32, opcode: &Opcode) -> Option<u32> {
-    if *opcode == Opcode::LoadValue{
-        return Some(getu(some_instruction, 0, 25));
-    }
-    else{
-        return None
-    }
+        if *opcode == Opcode::LoadValue{
+            return Some(getu(some_instruction, 0, 25));
+        }
+        else{
+            return None
+        }
 }
 
 //Instruction Implementation

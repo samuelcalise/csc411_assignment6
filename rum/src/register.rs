@@ -35,8 +35,6 @@ impl Register {
         };
     
         *reference
-
-        //self.vec_registers[register]
     }    
 
     ///Function: set_register_value(&mut self, register: usize) -> u32
@@ -45,6 +43,12 @@ impl Register {
     ///and value which will be set within the `Register` vector at the
     ///address `register` with the passed in `value`.
     pub fn set_register_value(&mut self, register: usize, value: u32) {
-        self.vec_registers[register] = value
+        if register < self.vec_registers.len() {
+            unsafe {
+                *self.vec_registers.get_unchecked_mut(register) = value;
+            }
+        } else {
+            panic!("Index out of bounds");
+        }
     }
 }
