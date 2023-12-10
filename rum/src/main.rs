@@ -6,6 +6,8 @@ pub mod segment;
 pub mod register;
 pub mod um_instruction;
 
+//zip command:  zip -r rum.zip rum -x "rum/*/Cargo.lock" "rum/target/**" "rum/*/.git/"  
+
 //function take from past lab
 pub fn load_instruction(input: Option<&str>) -> Vec<u32> 
 {
