@@ -6,8 +6,6 @@ pub mod segment;
 pub mod register;
 pub mod um_instruction;
 
-//zip command:  zip -r rum.zip rum -x "rum/*/Cargo.lock" "rum/target/**" "rum/*/.git/"  
-
 //function take from past lab
 pub fn load_instruction(input: Option<&str>) -> Vec<u32> 
 {
@@ -46,31 +44,59 @@ fn main()
 
     let mut instruction_count = 0;
 
-    loop {
+    for _i in 0..usize::MAX{
+
+        //Getting the instruction from rum's function
         let this_instruction = rum.get_instruction(instruction_count);
+
         instruction_count += 1;
 
-        match this_instruction.opcode {
-            um_instruction::Opcode::CMov => rum.conditional_move(this_instruction),
-            um_instruction::Opcode::Load => rum.segment_load(this_instruction),
-            um_instruction::Opcode::Store => rum.segment_store(this_instruction),
-            um_instruction::Opcode::Add => rum.addition(this_instruction),
-            um_instruction::Opcode::Mul => rum.multiplication(this_instruction),
-            um_instruction::Opcode::Div => rum.division(this_instruction),
-            um_instruction::Opcode::Nand => rum.bit_nand(this_instruction),
-            um_instruction::Opcode::Halt => {
-                //println!("The total number of instructions: {}", instruction_count);
-                process::exit(0);
-            }
-            um_instruction::Opcode::MapSegment => rum.map_segment(this_instruction),
-            um_instruction::Opcode::UnmapSegment => rum.unmap_segment(this_instruction),
-            um_instruction::Opcode::Output => rum.output_program(this_instruction),
-            um_instruction::Opcode::Input => rum.user_input(this_instruction),
-            um_instruction::Opcode::LoadProgram => {
-                instruction_count = rum.load_program(this_instruction);
-            }
-            um_instruction::Opcode::LoadValue => rum.load_value(this_instruction),
-            um_instruction::Opcode::Err => panic!("Unknown opcode for instruction {:?}", this_instruction),
+        //After determining the value of the instruction, the 
+        //value found will call the appropriate function
+        if this_instruction.opcode == um_instruction::Opcode::CMov{
+            rum.conditional_move(this_instruction);
+        }
+        else if this_instruction.opcode == um_instruction::Opcode::Load {
+            rum.segment_load(this_instruction);
+        }
+        else if this_instruction.opcode == um_instruction::Opcode::Store {
+            rum.segment_store(this_instruction);
+        }
+        else if this_instruction.opcode == um_instruction::Opcode::Add {
+            rum.addition(this_instruction);
+        }
+        else if this_instruction.opcode == um_instruction::Opcode::Mul {
+            rum.multiplication(this_instruction);
+        }
+        else if this_instruction.opcode == um_instruction::Opcode::Div {
+            rum.division(this_instruction);
+        }
+        else if this_instruction.opcode == um_instruction::Opcode::Nand {
+            rum.bit_nand(this_instruction);
+        }
+        else if this_instruction.opcode == um_instruction::Opcode::Halt {
+            process::exit(0);
+        }
+        else if this_instruction.opcode == um_instruction::Opcode::MapSegment {
+            rum.map_segment(this_instruction);
+        }
+        else if this_instruction.opcode == um_instruction::Opcode::UnmapSegment {
+            rum.unmap_segment(this_instruction);
+        }
+        else if this_instruction.opcode == um_instruction::Opcode::Output {
+            rum.output_program(this_instruction);
+        }
+        else if this_instruction.opcode == um_instruction::Opcode::Input {
+            rum.user_input(this_instruction);
+        }
+        else if this_instruction.opcode == um_instruction::Opcode::LoadProgram {
+            instruction_count = rum.load_program(this_instruction);
+        }
+        else if this_instruction.opcode == um_instruction::Opcode::LoadValue {
+            rum.load_value(this_instruction);
+        }
+        else if this_instruction.opcode == um_instruction::Opcode::Err {
+            panic!("Unknown opcode for instruction {:?}", this_instruction)
         }
     }
 }
