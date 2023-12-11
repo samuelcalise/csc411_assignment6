@@ -210,17 +210,14 @@ impl Rum {
     ///
     ///The `unmap_segment` function will be unmaping a segment of its location
     ///in the current `register`.
-    pub fn unmap_segment(&mut self, some_instruction: Instruction) 
+    pub fn unmap_segment(&mut self, some_instruction: Instruction)
     {
+        let c_bit = some_instruction.c.unwrap() as usize;
 
-        let c_bit = unsafe { some_instruction.c.unwrap() as usize };
-    
-        let this_address = unsafe { self.register.get_register_value(c_bit) as usize };
-    
-        unsafe {
-            self.segment.unmap_segment(this_address);
-        }
-    }    
+        let this_address = self.register.get_register_value(c_bit) as usize;
+
+        self.segment.unmap_segment(this_address);
+    }
 
     ///Function: `output_program(&mut self, some_instruction: Instruction)`
     ///
